@@ -24,53 +24,57 @@ How To
 
 In the header file you need to instantiate a `CContour` object and two callback functions. One callback functions lets the CContour object sample what you want to draw, and the other one lets you draw the generated contour plot. Both callback functions are defined as static function of ofApp. 
 
-	// header
 
-	class ofApp : public ofBaseApp{
+```cpp
+class ofApp : public ofBaseApp{
 
-		CContour contour;
+	CContour contour;
 
-		static double fieldFunction(ofApp * parent, double x, double y);
-		static void drawPlot(ofApp * parent, int iPlane,int x1, int y1, int x2, int y2);
+	static double fieldFunction(ofApp * parent, double x, double y);
+	static void drawPlot(ofApp * parent, int iPlane,int x1, int y1, int x2, int y2);
 
-	};
+};
+```
 
 In setup() you need to register the two callback functions and can define parameters for the contour plot.
 
-	void ofApp::setup(){
+```cpp
+void ofApp::setup(){
 
-		// register callback functions
-		contour.SetFieldFcn(fieldFunction, this);
-		contour.SetDrawFcn(drawPlot, this);
+	// register callback functions
+	contour.SetFieldFcn(fieldFunction, this);
+	contour.SetDrawFcn(drawPlot, this);
 
-		// sampling size of input function
-		contour.SetFirstGrid(inputGridSize,inputGridSize);
+	// sampling size of input function
+	contour.SetFirstGrid(inputGridSize,inputGridSize);
 
-		// this is the drawing resolution of the plot generated
-		contour.SetSecondaryGrid(drawSize,drawSize);
+	// this is the drawing resolution of the plot generated
+	contour.SetSecondaryGrid(drawSize,drawSize);
 
-		// set the number of contour planes 
-		numPlanes = 20;
-		contourInterval = 0.15;
-	    vector<double> vIso(numPlanes); 
-		for (unsigned int i=0;i<vIso.size();i++) {
-			vIso[i]=(i-vIso.size()/2.0)*contourInterval;
-		}
-	    contour.SetPlanes(vIso); 
+	// set the number of contour planes 
+	numPlanes = 20;
+	contourInterval = 0.15;
+    vector<double> vIso(numPlanes); 
+	for (unsigned int i=0;i<vIso.size();i++) {
+		vIso[i]=(i-vIso.size()/2.0)*contourInterval;
+	}
+    contour.SetPlanes(vIso); 
 
-    }
+}
+```
 
 In the draw() function you generate and draw the contour plot with one call.
 
-	void ofApp::draw(){
+```cpp
+void ofApp::draw(){
 
-		// this calculates and draws the contour plot
-		// by calling (1) fieldFunction
-		//        and (2) drawPlot
-		contour.Generate();
+	// this calculates and draws the contour plot
+	// by calling (1) fieldFunction
+	//        and (2) drawPlot
+	contour.Generate();
 
-	}
-
+}
+```
 
 
 
