@@ -22,7 +22,7 @@ The first example demonstrates contour-plotting of mathematical functions `f(x,y
 How To
 ------
 
-In the header file you need to instantiate a `CContour` object and two callback functions. One callback functions lets the CContour object sample what you want to draw, and the other one lets you draw the generated contour plot. Both callback functions are defined as static function of ofApp. 
+In the header file you need to instantiate a `CContour` object and two callback functions. One callback functions lets the CContour object sample what you want to draw, and the other one lets you draw the generated contour plot. Both callback functions are defined as static functions of ofApp. 
 
 
 ```cpp
@@ -36,7 +36,7 @@ class ofApp : public ofBaseApp{
 };
 ```
 
-Define the callback function that feeds the contour plot algorithm. Default input range from CContour for x|y is 0 to 5. 
+Now define the callback function that feeds the contour plot algorithm. Default input range from CContour for x|y is 0 to 5. Instead of handing back a value based on a mathemtical algorithm, you could also hand back the brightness of a pixel at x|y of an image. 
 
 ```cpp
 double ofApp::fieldFunction(ofApp * parent, double x, double y) {
@@ -50,7 +50,7 @@ double ofApp::fieldFunction(ofApp * parent, double x, double y) {
 }
 ```
 
-Define the callback function that lets you draw the contour plot. It hands you back individual lines (x1, y1, x2, y2) and the number of the contour plane (iPlane). 
+Define the callback function that lets you draw the contour plot. In every call CContour will hand you back individual lines (x1, y1, x2, y2) and the number of the contour plane (iPlane). 
 
 ```cpp
 void ofApp::drawPlot(ofApp * parent, int iPlane,int x1, int y1, int x2, int y2) {
@@ -88,7 +88,7 @@ void ofApp::setup(){
 }
 ```
 
-In the draw() function you generate and draw the contour plot with one call.
+Finally, in the draw() function you generate and draw the contour plot with one call.
 
 ```cpp
 void ofApp::draw(){
