@@ -36,6 +36,31 @@ class ofApp : public ofBaseApp{
 };
 ```
 
+Define the callback function that feeds the contour plot algorithm. Default input range from CContour for x|y is 0 to 5. 
+
+```cpp
+double ofApp::fieldFunction(ofApp * parent, double x, double y) {
+
+	// if you want to refer back to objects/variables in the
+	// the main ofApp do it like this:
+	// parent->inputGridSize
+
+	return sin(x*2) + cos(y*2);
+
+}
+```
+
+Define the callback function that lets you draw the contour plot. It hands you back individual lines (x1, y1, x2, y2) and the number of the contour plane (iPlane). 
+
+```cpp
+void ofApp::drawPlot(ofApp * parent, int iPlane,int x1, int y1, int x2, int y2) {
+
+	ofSetColor( ofMap(iPlane, 0, parent->contour.GetNPlanes(), 0, 255)  );
+	ofLine(x1,y1,x2,y2);
+
+}
+```
+
 In setup() you need to register the two callback functions and can define parameters for the contour plot.
 
 ```cpp
